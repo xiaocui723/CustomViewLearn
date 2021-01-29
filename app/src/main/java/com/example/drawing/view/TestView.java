@@ -10,7 +10,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class TestView extends View {
-    private final static float RADIUS = 200f;
+    private float RADIUS = Utils.dp2px(100f);
 
     public TestView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -23,6 +23,6 @@ public class TestView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawLine(100f, 100f, 200f, 200f, paint);
-        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, Utils.dp2px(100f), paint);
+        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, RADIUS, paint);
     }
 }
