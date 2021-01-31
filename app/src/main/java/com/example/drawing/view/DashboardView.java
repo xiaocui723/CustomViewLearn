@@ -23,8 +23,6 @@ public class DashboardView extends View {
     // 刻度长度
     private static final float DASH_LENGTH = Utils.dp2px(10f);
 
-    private final float radius = Utils.dp2px(100f);
-
     // Paint.ANTI_ALIAS_FLAG 自动抗锯齿
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path path = new Path();
@@ -44,7 +42,7 @@ public class DashboardView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         path.reset();
-        path.addArc(getWidth() / 2f - Utils.dp2px(150), getHeight() / 2f - Utils.dp2px(150), getWidth() / 2f + Utils.dp2px(150), getHeight() / 2f + Utils.dp2px(150), 90 + OPEN_ANGLE / 2f, 360 - OPEN_ANGLE);
+        path.addArc(getWidth() / 2f - RADIUS, getHeight() / 2f - RADIUS, getWidth() / 2f + RADIUS, getHeight() / 2f + RADIUS, 90 + OPEN_ANGLE / 2f, 360 - OPEN_ANGLE);
         PathMeasure pathMeasure = new PathMeasure(path, false);
         // 刻度位置与间隔
         pathEffect = new PathDashPathEffect(dash, (pathMeasure.getLength() - DASH_WIDTH) / 20f, 0f, PathDashPathEffect.Style.ROTATE);
