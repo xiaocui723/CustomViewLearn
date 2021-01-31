@@ -22,6 +22,7 @@ public class PieView extends View {
     private static final float RADIUS = Utils.dp2px(150f);
     private static final float[] ANGLES = new float[]{60f, 90f, 150f, 60f};
     private static final int[] COLORS = new int[]{Color.parseColor("#1976D2"), Color.parseColor("#009688"), Color.parseColor("#FFC107"), Color.parseColor("#7C4DFF")};
+    private static final float OFFSET_LENGTH = Utils.dp2px(20f);
 
     private float radius = Utils.dp2px(100f);
 
@@ -44,8 +45,15 @@ public class PieView extends View {
         float startAngle = 0f;
         for (int i = 0; i < ANGLES.length; i++) {
             paint.setColor(COLORS[i]);
-            canvas.drawArc(getWidth() / 2f - Utils.dp2px(150), getHeight() / 2f - Utils.dp2px(150), getWidth() / 2f + Utils.dp2px(150), getHeight() / 2f + Utils.dp2px(150), startAngle, ANGLES[i], true, paint);
+            if (i == 3) {
+                canvas.save();
+                canvas.translate((float) (OFFSET_LENGTH * Math.cos(Math.toRadians(startAngle + ANGLES[i] / 2f))), (float) (OFFSET_LENGTH * Math.sin(Math.toRadians(startAngle + ANGLES[i] / 2f))));
+            }
+            canvas.drawArc(getWidth() / 2f - RADIUS, getHeight() / 2f - RADIUS, getWidth() / 2f + RADIUS, getHeight() / 2f + RADIUS, startAngle, ANGLES[i], true, paint);
             startAngle += ANGLES[i];
+            if (i == 3) {
+                canvas.restore();
+            }
         }
 
     }
