@@ -5,21 +5,18 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 public class TestView extends View {
-    private float RADIUS = Utils.dp2px(100f);
-
+    private final float RADIUS = Utils.dp2px(100f);
+    // Paint.ANTI_ALIAS_FLAG 自动抗锯齿
+    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Path path = new Path();
     public TestView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
-
-    // Paint.ANTI_ALIAS_FLAG 自动抗锯齿
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Path path = new Path();
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

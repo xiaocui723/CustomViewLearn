@@ -23,12 +23,12 @@ public class DashboardView extends View {
     // 刻度长度
     private static final float DASH_LENGTH = Utils.dp2px(10f);
 
-    private float radius = Utils.dp2px(100f);
+    private final float radius = Utils.dp2px(100f);
 
     // Paint.ANTI_ALIAS_FLAG 自动抗锯齿
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Path path = new Path();
-    private Path dash = new Path();
+    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Path path = new Path();
+    private final Path dash = new Path();
     private PathDashPathEffect pathEffect;
 
     public DashboardView(Context context, @Nullable AttributeSet attrs) {
@@ -66,7 +66,7 @@ public class DashboardView extends View {
         // 余弦
         float sin = (float) Math.sin(markToRadians(8));
         // 画指针
-        canvas.drawLine(getWidth() / 2f, getHeight() /2f, getWidth() / 2f + LENGTH * cos, getHeight() / 2f + LENGTH * sin, paint);
+        canvas.drawLine(getWidth() / 2f, getHeight() / 2f, getWidth() / 2f + LENGTH * cos, getHeight() / 2f + LENGTH * sin, paint);
     }
 
     private double markToRadians(int mark) {

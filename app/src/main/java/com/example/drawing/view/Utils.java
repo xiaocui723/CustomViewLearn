@@ -1,6 +1,5 @@
 package com.example.drawing.view;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
