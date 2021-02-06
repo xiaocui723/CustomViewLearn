@@ -4,22 +4,26 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 
+import com.example.text.R;
 import com.example.text.Utils;
 
 public class SportView extends View {
     private static final int CIRCLE_COLOR = Color.parseColor("#90A4AE");
     private static final int HIGHLIGHT_COLOR = Color.parseColor("#FF4081");
     private static final float RING_WIDTH = Utils.dp2px(20f);
-    private static final float RADIUS = Utils.dp2px(150);
+    private static final float RADIUS = Utils.dp2px(150f);
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Rect bounds = new Rect();
 
     public SportView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -38,5 +42,17 @@ public class SportView extends View {
         paint.setColor(HIGHLIGHT_COLOR);
         paint.setStrokeCap(Paint.Cap.ROUND);
         canvas.drawArc(getWidth() / 2f - RADIUS, getHeight() / 2f - RADIUS, getWidth() / 2f + RADIUS, getHeight() / 2f + RADIUS, -90f, 225f, false, paint);
+
+        // 绘制文字
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(Utils.dp2px(100f));
+        // 设置字体
+        paint.setTypeface(ResourcesCompat.getFont(getContext(), R.font.font));
+        // 设置假粗体
+        paint.setFakeBoldText(true);
+        // 字体对齐方式
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.getTextBounds("abab", 0, "abab".length(), bounds);
+        canvas.drawText("abab", getWidth() / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
     }
 }
