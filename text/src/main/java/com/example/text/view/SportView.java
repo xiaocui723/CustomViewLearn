@@ -52,7 +52,13 @@ public class SportView extends View {
         paint.setFakeBoldText(true);
         // 字体对齐方式
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.getTextBounds("abab", 0, "abab".length(), bounds);
-        canvas.drawText("abab", getWidth() / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
+        paint.getTextBounds("abap", 0, "abap".length(), bounds);
+        canvas.drawText("abap", getWidth() / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
+
+        // 绘制基线
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(Utils.dp2px(2f));
+        paint.setColor(Color.parseColor("#000000"));
+        canvas.drawLine(getWidth() / 2f - bounds.right / 2f - Utils.dp2px(5f), getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, getWidth() / 2f + bounds.right / 2f + Utils.dp2px(5f), getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
     }
 }
