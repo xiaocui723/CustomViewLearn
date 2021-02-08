@@ -49,7 +49,7 @@ public class SportView extends View {
         // 设置字体
         paint.setTypeface(ResourcesCompat.getFont(getContext(), R.font.font));
         // 设置假粗体
-        paint.setFakeBoldText(true);
+        paint.setFakeBoldText(false);
         // 字体对齐方式
         paint.setTextAlign(Paint.Align.CENTER);
         paint.getTextBounds("abap", 0, "abap".length(), bounds);
