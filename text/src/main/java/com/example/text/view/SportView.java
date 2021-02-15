@@ -55,25 +55,25 @@ public class SportView extends View {
         paint.getTextBounds("abap", 0, "abap".length(), bounds);
         canvas.drawText("abap", getWidth() / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
 
-        // 绘制基线
+        // 绘制文字 Rect 基线
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(Utils.dp2px(2f));
         paint.setColor(Color.parseColor("#000000"));
         canvas.drawLine(getWidth() / 2f - bounds.right / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, getWidth() / 2f + bounds.right / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
 
-        // 绘制文字左基线
+        // 绘制文字 Rect 左基线
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(Utils.dp2px(2f));
         paint.setColor(Color.parseColor("#000000"));
         canvas.drawLine(getWidth() / 2f - bounds.right / 2f, getHeight() / 2f - bounds.bottom, getWidth() / 2f - bounds.right / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
 
-        // 绘制文字右基线
+        // 绘制文字 Rect 右基线
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(Utils.dp2px(2f));
         paint.setColor(Color.parseColor("#000000"));
         canvas.drawLine(getWidth() / 2f + bounds.right / 2f, getHeight() / 2f - bounds.bottom, getWidth() / 2f + bounds.right / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
 
-        // 绘制文字顶基线
+        // 绘制文字 Rect 顶基线
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(Utils.dp2px(2f));
         paint.setColor(Color.parseColor("#000000"));
