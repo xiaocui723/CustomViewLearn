@@ -24,6 +24,7 @@ public class SportView extends View {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Rect bounds = new Rect();
+    private Paint.FontMetrics fontMetrics = new Paint.FontMetrics();
 
     public SportView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -53,7 +54,8 @@ public class SportView extends View {
         // 字体对齐方式
         paint.setTextAlign(Paint.Align.CENTER);
         paint.getTextBounds("abap", 0, "abap".length(), bounds);
-        canvas.drawText("abap", getWidth() / 2f, getHeight() / 2f - (bounds.top + bounds.bottom) / 2f, paint);
+        paint.getFontMetrics(fontMetrics);
+        canvas.drawText("abap", getWidth() / 2f, getHeight() / 2f - (fontMetrics.ascent + fontMetrics.descent) / 2f, paint);
 
         // 绘制文字 Rect 基线
         paint.setStyle(Paint.Style.STROKE);
