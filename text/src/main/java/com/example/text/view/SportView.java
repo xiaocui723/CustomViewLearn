@@ -80,5 +80,18 @@ public class SportView extends View {
         paint.setStrokeWidth(Utils.dp2px(2f));
         paint.setColor(Color.parseColor("#000000"));
         canvas.drawLine(getWidth() / 2f - bounds.right / 2f, getHeight() / 2f - bounds.bottom, getWidth() / 2f + bounds.right / 2f, getHeight() / 2f - bounds.bottom, paint);
+
+        // 绘制文字贴边
+        paint.setTextSize(Utils.dp2px(150f));
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.getTextBounds("abap", 0, "abap".length(), bounds);
+        paint.getFontMetrics(fontMetrics);
+        canvas.drawText("abap", - bounds.left, - fontMetrics.top, paint);
+
+        paint.setTextSize(Utils.dp2px(15f));
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.getTextBounds("abap", 0, "abap".length(), bounds);
+        paint.getFontMetrics(fontMetrics);
+        canvas.drawText("abap", - bounds.left, - fontMetrics.top, paint);
     }
 }
