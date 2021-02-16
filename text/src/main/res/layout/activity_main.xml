@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.text.view.SportView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-</com.example.text.view.SportView>
+    <com.example.text.view.MultilineTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
