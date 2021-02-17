@@ -26,6 +26,7 @@ public class CameraView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.clipRect(BITMAP_PADDING, BITMAP_PADDING, BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2);
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint);
     }
 
