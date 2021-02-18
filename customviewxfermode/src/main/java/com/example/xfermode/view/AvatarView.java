@@ -35,18 +35,23 @@ public class AvatarView extends View {
         // 使用离屏缓冲，bounds 参数用于设置离屏缓冲的大小
         int count = canvas.saveLayer(bounds, null);
 
+        // 绘制目标图形
         canvas.drawOval(IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING + IMAGE_WIDTH, IMAGE_PADDING + IMAGE_WIDTH, paint);
 
+        // 设置 xfermode 模式
         paint.setXfermode(XFERMODE);
 
+        // 绘制源图形
         canvas.drawBitmap(getAvatar((int) IMAGE_WIDTH), IMAGE_PADDING, IMAGE_PADDING, paint);
 
-        paint.setStrokeWidth(Utils.dp2px(10f));
+        paint.setStrokeWidth(Utils.dp2px(5f));
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawOval(IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING + IMAGE_WIDTH, IMAGE_PADDING + IMAGE_WIDTH, paint);
+        canvas.drawOval(IMAGE_PADDING  + Utils.dp2px(5f) / 2f, IMAGE_PADDING + Utils.dp2px(5f) / 2f, IMAGE_PADDING + IMAGE_WIDTH - Utils.dp2px(5f) / 2f, IMAGE_PADDING + IMAGE_WIDTH - Utils.dp2px(5f) / 2f, paint);
 
+        // 重置 xfermode
         paint.setXfermode(null);
-        // 恢复离屏缓冲
+
+        // 关闭离屏缓冲并将混合图形放置 View 中
         canvas.restoreToCount(count);
     }
 

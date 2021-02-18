@@ -31,6 +31,7 @@ public class XfermodeView extends View {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public XfermodeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        // 通过 canvas 给 bitmap 绘制内容
         Canvas canvas = new Canvas(circleBitmap);
         paint.setColor(Color.parseColor("#D81B60"));
         canvas.drawOval(Utils.dp2px(50f), Utils.dp2px(0f), Utils.dp2px(150f), Utils.dp2px(100f), paint);
@@ -43,15 +44,22 @@ public class XfermodeView extends View {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
+        // 使用离屏缓冲，bounds 是离屏缓冲的大小
         int count = canvas.saveLayer(bounds, null);
 
+        // 绘制目标图形
         canvas.drawBitmap(circleBitmap, Utils.dp2px(150f), Utils.dp2px(50f), paint);
 
+        // 设置混合的模式
         paint.setXfermode(XFERMODE);
 
+        // 绘制源图形
         canvas.drawBitmap(squareBitmap, Utils.dp2px(150f), Utils.dp2px(50f), paint);
 
+        // 混合模式重置
         paint.setXfermode(null);
+
+        // 离屏缓冲关闭，将内容放到 View 中
         canvas.restoreToCount(count);
     }
 }
