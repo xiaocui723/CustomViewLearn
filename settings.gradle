@@ -1,3 +1,4 @@
+include ':animation'
 include ':clipandcamera'
 include ':text'
 include ':customviewxfermode'
