@@ -1,11 +1,12 @@
 package com.example.clipandcamera.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,18 +23,24 @@ public class CameraView extends View {
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Bitmap bitmap = getAvatar((int) BITMAP_SIZE);
-
-    private final Path clipPath = new Path();
+    private final Camera camera = new Camera();
 
     public CameraView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        // 以 X 轴旋转
+        camera.rotateX(30f);
+        // 设置 camera 镜头位置，位置单位为英寸，所以设置值需要做屏幕像素密度适配
+        // 避免绘制翻转效果过于夸张
+        camera.setLocation(0f, 0f, -6 * Resources.getSystem().getDisplayMetrics().density);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
-        clipPath.addOval(BITMAP_PADDING, BITMAP_PADDING, BITMAP_PADDING + BITMAP_SIZE, BITMAP_PADDING + BITMAP_SIZE, Path.Direction.CCW);
-        canvas.clipPath(clipPath);
+        canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2);
+        // 将 camera 应用到 canvas 中
+        camera.applyToCanvas(canvas);
+        canvas.translate(-(BITMAP_PADDING + BITMAP_SIZE / 2), -(BITMAP_PADDING + BITMAP_SIZE / 2));
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint);
     }
 
