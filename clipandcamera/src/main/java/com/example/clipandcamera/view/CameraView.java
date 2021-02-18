@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,11 +38,23 @@ public class CameraView extends View {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
+        // 上半部分
+        canvas.save();
+        canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2);
+        canvas.clipRect(- BITMAP_SIZE / 2, - BITMAP_SIZE / 2, BITMAP_SIZE / 2, 0f);
+        canvas.translate(- (BITMAP_PADDING + BITMAP_SIZE / 2), - (BITMAP_PADDING + BITMAP_SIZE / 2));
+        canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint);
+        canvas.restore();
+
+        // 下半部分
+        canvas.save();
         canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2);
         // 将 camera 应用到 canvas 中
         camera.applyToCanvas(canvas);
-        canvas.translate(-(BITMAP_PADDING + BITMAP_SIZE / 2), -(BITMAP_PADDING + BITMAP_SIZE / 2));
+        canvas.clipRect(- BITMAP_SIZE / 2, 0f, BITMAP_SIZE / 2, BITMAP_SIZE /2);
+        canvas.translate(- (BITMAP_PADDING + BITMAP_SIZE / 2), - (BITMAP_PADDING + BITMAP_SIZE / 2));
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint);
+        canvas.restore();
     }
 
     private Bitmap getAvatar(int width) {
