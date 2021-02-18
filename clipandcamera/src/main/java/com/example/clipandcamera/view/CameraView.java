@@ -41,7 +41,9 @@ public class CameraView extends View {
         // 上半部分
         canvas.save();
         canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2);
-        canvas.clipRect(- BITMAP_SIZE / 2, - BITMAP_SIZE / 2, BITMAP_SIZE / 2, 0f);
+        canvas.rotate(-30f);
+        canvas.clipRect(- BITMAP_SIZE, - BITMAP_SIZE, BITMAP_SIZE, 0f);
+        canvas.rotate(30f);
         canvas.translate(- (BITMAP_PADDING + BITMAP_SIZE / 2), - (BITMAP_PADDING + BITMAP_SIZE / 2));
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint);
         canvas.restore();
@@ -49,9 +51,11 @@ public class CameraView extends View {
         // 下半部分
         canvas.save();
         canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2);
+        canvas.rotate(-30f);
         // 将 camera 应用到 canvas 中
         camera.applyToCanvas(canvas);
-        canvas.clipRect(- BITMAP_SIZE / 2, 0f, BITMAP_SIZE / 2, BITMAP_SIZE /2);
+        canvas.clipRect(- BITMAP_SIZE, 0f, BITMAP_SIZE, BITMAP_SIZE);
+        canvas.rotate(30f);
         canvas.translate(- (BITMAP_PADDING + BITMAP_SIZE / 2), - (BITMAP_PADDING + BITMAP_SIZE / 2));
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint);
         canvas.restore();
