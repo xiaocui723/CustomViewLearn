@@ -4,13 +4,21 @@ import android.animation.AnimatorSet;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
+import android.graphics.PointF;
 import android.os.Bundle;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.animation.view.CameraView;
 import com.example.animation.view.CircleView;
+import com.example.animation.view.PointView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,20 +75,44 @@ public class MainActivity extends AppCompatActivity {
 //        holderAnimator.start();
 
         // Keyframe
-        float length = Utils.dp2px(200f);
-        // fraction 参数为动画完成比率，百分比，多个 keyframe 的 fraction 值顺序应该是由 0 ~ 1
-        // value 则没有限制
-        Keyframe keyframe1 = Keyframe.ofFloat(0f, 0f);
-        Keyframe keyframe2 = Keyframe.ofFloat(0.2f, 0.4f * length);
-        Keyframe keyframe3 = Keyframe.ofFloat(0.8f, 0.6f * length);
-        Keyframe keyframe4 = Keyframe.ofFloat(1f, 1f * length);
+//        float length = Utils.dp2px(200f);
+//        // fraction 参数为动画完成比率，百分比，多个 keyframe 的 fraction 值顺序应该是由 0 ~ 1
+//        // value 则没有限制
+//        Keyframe keyframe1 = Keyframe.ofFloat(0f, 0f);
+//        Keyframe keyframe2 = Keyframe.ofFloat(0.2f, 0.4f * length);
+//        Keyframe keyframe3 = Keyframe.ofFloat(0.8f, 0.6f * length);
+//        Keyframe keyframe4 = Keyframe.ofFloat(1f, 1f * length);
+//
+//        PropertyValuesHolder keyframeHolder = PropertyValuesHolder.ofKeyframe("translationX", keyframe1, keyframe2, keyframe3, keyframe4);
+//
+//        ImageView view = findViewById(R.id.view);
+//        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, keyframeHolder);
+//        animator.setStartDelay(1000);
+//        animator.setDuration(2000);
+//        animator.start();
 
-        PropertyValuesHolder keyframeHolder = PropertyValuesHolder.ofKeyframe("translationX", keyframe1, keyframe2, keyframe3, keyframe4);
-
-        ImageView view = findViewById(R.id.view);
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, keyframeHolder);
+        // Evaluator
+        PointView view = findViewById(R.id.view);
+        ObjectAnimator animator = ObjectAnimator.ofObject(view, "point", new PointFEvaluator(), new PointF(Utils.dp2px(100f), Utils.dp2px(200f)));
         animator.setStartDelay(1000);
         animator.setDuration(2000);
         animator.start();
+    }
+
+    // 自定义估值器
+    static class PointFEvaluator implements TypeEvaluator<PointF> {
+
+        @Override
+        public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
+            float startX = startValue.x;
+            float endX = endValue.x;
+            float currentX = startX + (endX - startX) * fraction;
+
+            float startY = startValue.y;
+            float endY = endValue.y;
+            float currentY = startY + (endY - startY) * fraction;
+
+            return new PointF(currentX, currentY);
+        }
     }
 }
