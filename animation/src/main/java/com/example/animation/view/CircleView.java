@@ -1,4 +1,4 @@
-package com.example.animation;
+package com.example.animation.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+
+import com.example.animation.Utils;
 
 public class CircleView extends View {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
