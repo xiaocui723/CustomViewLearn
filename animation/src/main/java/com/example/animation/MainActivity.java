@@ -1,5 +1,6 @@
 package com.example.animation;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.animation.view.CameraView;
 import com.example.animation.view.CircleView;
 import com.example.animation.view.PointView;
+import com.example.animation.view.ProvinceView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,10 +94,17 @@ public class MainActivity extends AppCompatActivity {
 //        animator.start();
 
         // Evaluator
-        PointView view = findViewById(R.id.view);
-        ObjectAnimator animator = ObjectAnimator.ofObject(view, "point", new PointFEvaluator(), new PointF(Utils.dp2px(100f), Utils.dp2px(200f)));
+//        PointView view = findViewById(R.id.view);
+//        ObjectAnimator animator = ObjectAnimator.ofObject(view, "point", new PointView.PointFEvaluator(), new PointF(Utils.dp2px(100f), Utils.dp2px(200f)));
+//        animator.setStartDelay(1000);
+//        animator.setDuration(2000);
+//        animator.start();
+
+        // String Animator
+        ProvinceView view = findViewById(R.id.view);
+        ObjectAnimator animator = ObjectAnimator.ofObject(view, "province", new ProvinceView.ProvinceEvaluator(), "澳门特别行政区");
         animator.setStartDelay(1000);
-        animator.setDuration(2000);
+        animator.setDuration(10_000);
         animator.start();
     }
 
