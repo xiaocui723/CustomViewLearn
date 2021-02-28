@@ -1,3 +1,4 @@
+include ':bitmapanddrawable'
 include ':animation'
 include ':clipandcamera'
 include ':text'
