@@ -2,6 +2,9 @@ package com.example.bitmapanddrawable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
