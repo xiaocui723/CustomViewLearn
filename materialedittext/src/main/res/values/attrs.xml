@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 属性组 -->
+    <declare-styleable name="MaterialEditText">
+        <!-- 属性 -->
+        <attr name="useFloatingLabel" format="boolean"/>
+    </declare-styleable>
+</resources>
