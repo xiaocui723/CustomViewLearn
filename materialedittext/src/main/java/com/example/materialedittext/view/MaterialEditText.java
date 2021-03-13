@@ -29,10 +29,11 @@ public class MaterialEditText extends AppCompatEditText {
     private boolean useFloatingLabel = false;
 
     public void setUseFloatingLabel(boolean useFloatingLabel) {
-        // 自定属性
+        // 自定属性，是否使用 FloatingLabel 效果
         if (useFloatingLabel != this.useFloatingLabel) {
             this.useFloatingLabel = useFloatingLabel;
             if (useFloatingLabel) {
+                // 设置预留空间
                 setPadding(getPaddingLeft(), (int) (getPaddingTop() + TEXT_SIZE + TEXT_MARGIN), getPaddingRight(), getPaddingBottom());
             } else {
                 setPadding(getPaddingLeft(), (int) (getPaddingTop() - TEXT_SIZE - TEXT_MARGIN), getPaddingRight(), getPaddingBottom());
@@ -49,6 +50,7 @@ public class MaterialEditText extends AppCompatEditText {
         setUseFloatingLabel(typedArray.getBoolean(R.styleable.MaterialEditText_useFloatingLabel, true));
         typedArray.recycle();
 
+        // 属性动画
         animator = ObjectAnimator.ofFloat(this, "floatingLabelFraction", 0f, 1f);
     }
 
@@ -58,6 +60,7 @@ public class MaterialEditText extends AppCompatEditText {
         if (useFloatingLabel) {
             if (floatingLabelShown && TextUtils.isEmpty(getText())) {
                 floatingLabelShown = false;
+                // 动画的反向执行
                 animator.reverse();
             } else if (!floatingLabelShown && !TextUtils.isEmpty(getText())) {
                 floatingLabelShown = true;
@@ -69,7 +72,7 @@ public class MaterialEditText extends AppCompatEditText {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // 根据动画完成度修改属性
+        // 根据动画完成度修改 paint 的透明度，及 Hint 文字偏移值
         paint.setAlpha((int) (floatingLabelFraction * 0xff));
         float currentVertivalValue = VERTICAL_OFFSET + EXTRA_VERTICAL_OFFSET * (1 - floatingLabelFraction);
         canvas.drawText(String.valueOf(getHint()), HORIZONTAL_OFFSET, currentVertivalValue, paint);
