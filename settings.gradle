@@ -1,3 +1,4 @@
+include ':customviewlayoutsize'
 include ':materialedittext'
 include ':bitmapanddrawable'
 include ':animation'
