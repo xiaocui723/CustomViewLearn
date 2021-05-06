@@ -5,15 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.example.customviewlayoutsize.view.SquareImageView
+    <com.example.customviewlayoutsize.view.CircleView
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/avatar_bq"/>
-
-    <View
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        android:background="@color/design_default_color_primary"/>
+        android:background="@color/teal_200"/>
 </LinearLayout>
