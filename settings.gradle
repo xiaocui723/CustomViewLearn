@@ -7,3 +7,4 @@ include ':text'
 include ':customviewxfermode'
 include ':app'
 rootProject.name = "CustomViewDrawing"
+include ':customviewlayoutlayout'
