@@ -1,24 +1,64 @@
 package com.example.customviewlayoutlayout.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 public class TagLayout extends ViewGroup {
+    // 所有子 View 的位置及尺寸
+    private ArrayList<Rect> childrenBounds = new ArrayList<>();
+
     public TagLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int widthUsed = 0;
+        int heightUsed = 0;
+        int lineMaxHeight = 0;
+
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+
+            // 子 View 尺寸要求官方通用计算方法
+            measureChildWithMargins(child, widthMeasureSpec, widthUsed, heightMeasureSpec, heightUsed);
+
+            // 保存子 View 位置及尺寸
+            if (i >= childrenBounds.size()) {
+                childrenBounds.add(new Rect());
+            }
+            Rect childBounds = childrenBounds.get(i);
+            childBounds.set(widthUsed, heightUsed, widthUsed + child.getMeasuredWidth(), heightUsed + child.getMeasuredHeight());
+
+            // 已用空间更新
+            widthUsed += child.getMeasuredWidth();
+            // 行高更新
+            lineMaxHeight = Math.max(lineMaxHeight, child.getMeasuredHeight());
+        }
+
+        // 计算自己的尺寸
+        int selfWidth = widthUsed;
+        int selfHeight = lineMaxHeight;
+        setMeasuredDimension(selfWidth, selfHeight);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
-            if (i == 0) {
-                child.layout(0, 0, (r - l) / 2, (b - t) / 2);
-            } else if (i == 1) {
-                child.layout((r - l) / 2, (b - t) / 2, r - l, b - t);
-            }
+            Rect childBounds = childrenBounds.get(i);
+            child.layout(childBounds.left, childBounds.top, childBounds.right, childBounds.bottom);
         }
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
     }
 }
