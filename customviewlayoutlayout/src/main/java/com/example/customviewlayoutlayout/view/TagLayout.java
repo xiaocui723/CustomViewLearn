@@ -26,22 +26,27 @@ public class TagLayout extends ViewGroup {
         int specWidthSize = MeasureSpec.getSize(widthMeasureSpec);
         int specWidthMode = MeasureSpec.getMode(widthMeasureSpec);
 
+        // 遍历子 View，确定子 View 的尺寸及位置
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
 
             // 子 View 尺寸要求官方通用计算方法
+            // 首次计算，获得子 View 尺寸
             measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUsed);
 
             // 计算折行
+            // 因为需求中子 View 需要这行，因此需要判断子 View 宽度是否超过父 View 可用空间。
             if (specWidthMode != MeasureSpec.UNSPECIFIED &&
                     lineWidthUsed + child.getMeasuredWidth() > specWidthSize) {
                 lineWidthUsed = 0;
                 heightUsed += lineMaxHeight;
                 lineMaxHeight = 0;
+                // 触发折行，需要再次对子 View 进行一次测量。
                 measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUsed);
             }
 
             // 保存子 View 位置及尺寸
+
             if (i >= childrenBounds.size()) {
                 childrenBounds.add(new Rect());
             }
