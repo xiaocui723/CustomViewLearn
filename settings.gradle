@@ -10,3 +10,4 @@ rootProject.name = "CustomViewDrawing"
 include ':customviewlayoutlayout'
 include ':viewrootimpl'
 include ':customviewtouch'
+include ':customviewtouchscalableimageview'
