@@ -9,3 +9,4 @@ include ':app'
 rootProject.name = "CustomViewDrawing"
 include ':customviewlayoutlayout'
 include ':viewrootimpl'
+include ':customviewtouch'
