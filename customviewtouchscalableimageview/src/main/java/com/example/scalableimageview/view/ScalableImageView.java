@@ -1,8 +1,7 @@
 package com.example.scalableimageview.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -19,12 +18,12 @@ import androidx.core.view.ViewCompat;
 
 import com.example.scalableimageview.Utils;
 
-public class ScalableImageView extends View implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener, Runnable {
+public class ScalableImageView extends View {
     private final static int IMAGE_SIZE = (int) Utils.dp2px(300f);
     private final static float EXTRA_SCALE_FACTOR = 2f;
 
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Bitmap bitmap = Utils.getAvatar(getResources(), IMAGE_SIZE);
+    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Bitmap bitmap = Utils.getAvatar(getResources(), IMAGE_SIZE);
     private float originalOffsetX = 0f;
     private float originalOffsetY = 0f;
     private float offsetX = 0f;
@@ -33,9 +32,11 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
     private float bigScale = 0f;
     private boolean big = false;
     private float scaleFraction = 0f;
-    private GestureDetectorCompat gestureDetector = new GestureDetectorCompat(getContext(), this);
-    private ObjectAnimator animator;
-    private OverScroller scroller = new OverScroller(getContext());
+    private final MyRunnable myRunnable = new MyRunnable();
+    private final MyGestureListener myGestureListener = new MyGestureListener();
+    private final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(getContext(), myGestureListener);
+    private final ObjectAnimator animator;
+    private final OverScroller scroller = new OverScroller(getContext());
 
     public ScalableImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -65,6 +66,7 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
@@ -79,31 +81,6 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
         canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint);
     }
 
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        if (big) {
-            offsetX -= distanceX;
-            offsetY -= distanceY;
-            fixOffset();
-            invalidate();
-        }
-        return false;
-    }
-
     private void fixOffset() {
         offsetX = Math.min(offsetX, (bitmap.getWidth() * bigScale - getWidth()) / 2);
         offsetX = Math.max(offsetX, -(bitmap.getWidth() * bigScale - getWidth()) / 2);
@@ -111,56 +88,62 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
         offsetY = Math.max(offsetY, -(bitmap.getHeight() * bigScale - getHeight()) / 2);
     }
 
-    @Override
-    public void onLongPress(MotionEvent e) {
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (big) {
-            scroller.fling((int) offsetX, (int) offsetY, (int) velocityX, (int) velocityY,
-                    (int) -(bitmap.getWidth() * bigScale - getWidth()) / 2,
-                    (int) (bitmap.getWidth() * bigScale - getWidth()) / 2,
-                    (int) -(bitmap.getHeight() * bigScale - getHeight()) / 2,
-                    (int) (bitmap.getHeight() * bigScale - getHeight()) / 2,
-                    (int) Utils.dp2px(40), (int) Utils.dp2px(40));
-
-            ViewCompat.postOnAnimation(this, this);
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
         }
-        return false;
-    }
 
-    @Override
-    public void run() {
-        if (scroller.computeScrollOffset()) {
-            offsetX = scroller.getCurrX();
-            offsetY = scroller.getCurrY();
-            invalidate();
-            ViewCompat.postOnAnimation(this, this);
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (big) {
+                offsetX -= distanceX;
+                offsetY -= distanceY;
+                fixOffset();
+                invalidate();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (big) {
+                scroller.fling((int) offsetX, (int) offsetY, (int) velocityX, (int) velocityY,
+                        (int) -(bitmap.getWidth() * bigScale - getWidth()) / 2,
+                        (int) (bitmap.getWidth() * bigScale - getWidth()) / 2,
+                        (int) -(bitmap.getHeight() * bigScale - getHeight()) / 2,
+                        (int) (bitmap.getHeight() * bigScale - getHeight()) / 2,
+                        (int) Utils.dp2px(40), (int) Utils.dp2px(40));
+
+                ViewCompat.postOnAnimation(ScalableImageView.this, myRunnable);
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            big = !big;
+            if (big) {
+                offsetX = (e.getX() - getWidth() / 2f) * (1 - bigScale / smallScale);
+                offsetY = (e.getY() - getHeight() / 2f) * (1 - bigScale / smallScale);
+                fixOffset();
+                animator.start();
+            } else {
+                animator.reverse();
+            }
+            return true;
         }
     }
 
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        big = !big;
-        if (big) {
-            offsetX = (e.getX() - getWidth() / 2f) * (1 - bigScale / smallScale);
-            offsetY = (e.getY() - getHeight() / 2f) * (1 - bigScale / smallScale);
-            fixOffset();
-            animator.start();
-        } else {
-            animator.reverse();
+    private class MyRunnable implements Runnable {
+        @Override
+        public void run() {
+            if (scroller.computeScrollOffset()) {
+                offsetX = scroller.getCurrX();
+                offsetY = scroller.getCurrY();
+                invalidate();
+                ViewCompat.postOnAnimation(ScalableImageView.this, this);
+            }
         }
-        return true;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        return false;
     }
 }
