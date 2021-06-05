@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.OverScroller;
 
@@ -31,53 +32,61 @@ public class ScalableImageView extends View {
     private float smallScale = 0f;
     private float bigScale = 0f;
     private boolean big = false;
-    private float scaleFraction = 0f;
+    private float currentScale = 0f;
     private final MyRunnable myRunnable = new MyRunnable();
     private final MyGestureListener myGestureListener = new MyGestureListener();
+    private final MyScaleGestureListener myScaleGestureListener = new MyScaleGestureListener();
     private final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(getContext(), myGestureListener);
-    private final ObjectAnimator animator;
+    private final ScaleGestureDetector scaleGestureDetector = new ScaleGestureDetector(getContext(), myScaleGestureListener);
+    private final ObjectAnimator animator = ObjectAnimator.ofFloat(this, "currentScale", smallScale, bigScale);
     private final OverScroller scroller = new OverScroller(getContext());
 
     public ScalableImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        animator = ObjectAnimator.ofFloat(this, "scaleFraction", 0f, 1f);
     }
 
-    private void setScaleFraction(float value) {
-        scaleFraction = value;
+    private void setCurrentScale(float value) {
+        currentScale = value;
         invalidate();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        originalOffsetX = (float) (getWidth() - IMAGE_SIZE) / 2;
-        originalOffsetY = (float) (getHeight() - IMAGE_SIZE) / 2;
+        originalOffsetX = (getWidth() - IMAGE_SIZE) / 2f;
+        originalOffsetY = (getHeight() - IMAGE_SIZE) / 2f;
 
         // 计算宽高比
         // 获得大图与小图的缩放比例
-        if ((float) bitmap.getWidth() / bitmap.getHeight() >
-                (float) getWidth() / getHeight()) {
-            smallScale = (float) getWidth() / bitmap.getWidth();
-            bigScale = (float) getHeight() / bitmap.getHeight() * EXTRA_SCALE_FACTOR;
+        if ((float) (bitmap.getWidth() / bitmap.getHeight()) >
+                (float) (getWidth() / getHeight())) {
+            smallScale = (float) (getWidth() / bitmap.getWidth());
+            bigScale = (float) (getHeight() / bitmap.getHeight()) * EXTRA_SCALE_FACTOR;
         } else {
-            smallScale = (float) getHeight() / bitmap.getHeight();
-            bigScale = (float) getWidth() / bitmap.getWidth() * EXTRA_SCALE_FACTOR;
+            smallScale = (float) (getHeight() / bitmap.getHeight());
+            bigScale = (float) (getWidth() / bitmap.getWidth()) * EXTRA_SCALE_FACTOR;
         }
+
+        currentScale = smallScale;
+        animator.setFloatValues(smallScale, bigScale);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
+        scaleGestureDetector.onTouchEvent(event);
+        if (!scaleGestureDetector.isInProgress()) {
+            gestureDetector.onTouchEvent(event);
+        }
+        return true;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        float scaleFraction = (currentScale - smallScale) / (bigScale - smallScale);
         canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction);
-        float scale = smallScale + (bigScale - smallScale) * scaleFraction;
-        canvas.scale(scale, scale, getWidth() / 2f, getHeight() / 2f);
+        canvas.scale(currentScale, currentScale, getWidth() / 2f, getHeight() / 2f);
         canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint);
     }
 
@@ -109,10 +118,10 @@ public class ScalableImageView extends View {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (big) {
                 scroller.fling((int) offsetX, (int) offsetY, (int) velocityX, (int) velocityY,
-                        (int) -(bitmap.getWidth() * bigScale - getWidth()) / 2,
-                        (int) (bitmap.getWidth() * bigScale - getWidth()) / 2,
-                        (int) -(bitmap.getHeight() * bigScale - getHeight()) / 2,
-                        (int) (bitmap.getHeight() * bigScale - getHeight()) / 2,
+                        (int) (-(bitmap.getWidth() * bigScale - getWidth()) / 2),
+                        (int) ((bitmap.getWidth() * bigScale - getWidth()) / 2),
+                        (int) (-(bitmap.getHeight() * bigScale - getHeight()) / 2),
+                        (int) ((bitmap.getHeight() * bigScale - getHeight()) / 2),
                         (int) Utils.dp2px(40), (int) Utils.dp2px(40));
 
                 ViewCompat.postOnAnimation(ScalableImageView.this, myRunnable);
@@ -135,12 +144,37 @@ public class ScalableImageView extends View {
         }
     }
 
+    private class MyScaleGestureListener implements ScaleGestureDetector.OnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            float tempCurrentScale = currentScale * detector.getScaleFactor();
+            if (tempCurrentScale < smallScale || tempCurrentScale > bigScale) {
+                return false;
+            } else {
+                currentScale *= detector.getScaleFactor();
+                invalidate();
+                return true;
+            }
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            offsetX = (detector.getFocusX() - getWidth() / 2f) * (1 - bigScale / smallScale);
+            offsetY = (detector.getFocusY() - getHeight() / 2f) * (1 - bigScale / smallScale);
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+        }
+    }
+
     private class MyRunnable implements Runnable {
         @Override
         public void run() {
             if (scroller.computeScrollOffset()) {
-                offsetX = scroller.getCurrX();
-                offsetY = scroller.getCurrY();
+                offsetX = (float) scroller.getCurrX();
+                offsetY = (float) scroller.getCurrY();
                 invalidate();
                 ViewCompat.postOnAnimation(ScalableImageView.this, this);
             }
