@@ -10,13 +10,13 @@ public class Utils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, Resources.getSystem().getDisplayMetrics());
     }
 
-    public static Bitmap getAvatar(Resources resources, int width) {
+    public static Bitmap getAvatar(Resources resources, int id, int width) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(resources, R.drawable.avatar_bq, options);
+        BitmapFactory.decodeResource(resources, id, options);
         options.inJustDecodeBounds = false;
         options.inDensity = options.outWidth;
         options.inTargetDensity = width;
-        return BitmapFactory.decodeResource(resources, R.drawable.avatar_bq, options);
+        return BitmapFactory.decodeResource(resources, id, options);
     }
 }

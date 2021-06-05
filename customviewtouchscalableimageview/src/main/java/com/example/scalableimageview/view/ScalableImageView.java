@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.core.view.ViewCompat;
 
+import com.example.scalableimageview.R;
 import com.example.scalableimageview.Utils;
 
 public class ScalableImageView extends View {
@@ -24,7 +25,7 @@ public class ScalableImageView extends View {
     private final static float EXTRA_SCALE_FACTOR = 2f;
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Bitmap bitmap = Utils.getAvatar(getResources(), IMAGE_SIZE);
+    private final Bitmap bitmap = Utils.getAvatar(getResources(), R.drawable.avatar_bq, IMAGE_SIZE);
     private float originalOffsetX = 0f;
     private float originalOffsetY = 0f;
     private float offsetX = 0f;
