@@ -22,7 +22,7 @@ import com.example.scalableimageview.Utils;
 
 public class ScalableImageView extends View {
     private final static int IMAGE_SIZE = (int) Utils.dp2px(300f);
-    private final static float EXTRA_SCALE_FACTOR = 2f;
+    private final static float EXTRA_SCALE_FACTOR = 1.5f;
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Bitmap bitmap = Utils.getAvatar(getResources(), R.drawable.avatar_bq, IMAGE_SIZE);
@@ -62,11 +62,11 @@ public class ScalableImageView extends View {
         // 获得大图与小图的缩放比例
         if ((float) (bitmap.getWidth() / bitmap.getHeight()) >
                 (float) (getWidth() / getHeight())) {
-            smallScale = (float) (getWidth() / bitmap.getWidth());
-            bigScale = (float) (getHeight() / bitmap.getHeight()) * EXTRA_SCALE_FACTOR;
+            smallScale = (float) getWidth() / bitmap.getWidth();
+            bigScale = (float) getHeight() / bitmap.getHeight() * EXTRA_SCALE_FACTOR;
         } else {
-            smallScale = (float) (getHeight() / bitmap.getHeight());
-            bigScale = (float) (getWidth() / bitmap.getWidth()) * EXTRA_SCALE_FACTOR;
+            smallScale = (float) getHeight() / bitmap.getHeight();
+            bigScale = (float) getWidth() / bitmap.getWidth() * EXTRA_SCALE_FACTOR;
         }
 
         currentScale = smallScale;
@@ -160,6 +160,7 @@ public class ScalableImageView extends View {
         public boolean onScale(ScaleGestureDetector detector) {
             // 通过双指缩放系数计算得到当前图片放缩系数
             float tempCurrentScale = currentScale * detector.getScaleFactor();
+
             if (tempCurrentScale < smallScale || tempCurrentScale > bigScale) {
                 return false;
             } else {
