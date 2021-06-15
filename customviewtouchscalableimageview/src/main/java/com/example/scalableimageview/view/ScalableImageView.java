@@ -77,6 +77,7 @@ public class ScalableImageView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
+        // 当双指缩放事件触发时，双击手势侦测器暂停侦测手势
         if (!scaleGestureDetector.isInProgress()) {
             gestureDetector.onTouchEvent(event);
         }
@@ -86,12 +87,17 @@ public class ScalableImageView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        // 偏移量影响系数实际为缩放系数进度百分比
         float scaleFraction = (currentScale - smallScale) / (bigScale - smallScale);
         canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction);
+
         canvas.scale(currentScale, currentScale, getWidth() / 2f, getHeight() / 2f);
         canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint);
     }
 
+    /**
+     * 偏移量限定值修正
+     */
     private void fixOffset() {
         offsetX = Math.min(offsetX, (bitmap.getWidth() * bigScale - getWidth()) / 2);
         offsetX = Math.max(offsetX, -(bitmap.getWidth() * bigScale - getWidth()) / 2);
@@ -119,6 +125,7 @@ public class ScalableImageView extends View {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (big) {
+                // 惯性滑动开始计算
                 scroller.fling((int) offsetX, (int) offsetY, (int) velocityX, (int) velocityY,
                         (int) (-(bitmap.getWidth() * bigScale - getWidth()) / 2),
                         (int) ((bitmap.getWidth() * bigScale - getWidth()) / 2),
@@ -126,6 +133,7 @@ public class ScalableImageView extends View {
                         (int) ((bitmap.getHeight() * bigScale - getHeight()) / 2),
                         (int) Utils.dp2px(40), (int) Utils.dp2px(40));
 
+                // 下一帧刷新时更新惯性动画
                 ViewCompat.postOnAnimation(ScalableImageView.this, myRunnable);
             }
             return false;
@@ -135,6 +143,7 @@ public class ScalableImageView extends View {
         public boolean onDoubleTap(MotionEvent e) {
             big = !big;
             if (big) {
+                // 双击放大获得跟手偏移量
                 offsetX = (e.getX() - getWidth() / 2f) * (1 - bigScale / smallScale);
                 offsetY = (e.getY() - getHeight() / 2f) * (1 - bigScale / smallScale);
                 fixOffset();
@@ -149,6 +158,7 @@ public class ScalableImageView extends View {
     private class MyScaleGestureListener implements ScaleGestureDetector.OnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            // 通过双指缩放系数计算得到当前图片放缩系数
             float tempCurrentScale = currentScale * detector.getScaleFactor();
             if (tempCurrentScale < smallScale || tempCurrentScale > bigScale) {
                 return false;
@@ -161,6 +171,7 @@ public class ScalableImageView extends View {
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
+            // 双指缩放跟手偏移量
             offsetX = (detector.getFocusX() - getWidth() / 2f) * (1 - bigScale / smallScale);
             offsetY = (detector.getFocusY() - getHeight() / 2f) * (1 - bigScale / smallScale);
             return true;
@@ -174,7 +185,9 @@ public class ScalableImageView extends View {
     private class MyRunnable implements Runnable {
         @Override
         public void run() {
+            // 惯性滑动进行时计算图片偏移量
             if (scroller.computeScrollOffset()) {
+                // 惯性滑动即时偏移量
                 offsetX = (float) scroller.getCurrX();
                 offsetY = (float) scroller.getCurrY();
                 invalidate();
