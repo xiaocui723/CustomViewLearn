@@ -54,8 +54,9 @@ public class ScalableImageView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        originalOffsetX = (getWidth() - IMAGE_SIZE) / 2f;
-        originalOffsetY = (getHeight() - IMAGE_SIZE) / 2f;
+
+        originalOffsetX = (getWidth() - bitmap.getWidth()) / 2f;
+        originalOffsetY = (getHeight() - bitmap.getHeight()) / 2f;
 
         // 计算宽高比
         // 获得大图与小图的缩放比例
