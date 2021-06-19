@@ -36,6 +36,11 @@ public class MultiTouchView1 extends View {
         canvas.drawBitmap(bitmap, offsetX, offsetY, paint);
     }
 
+    /**
+     * 接力型实现核心在于 trackingPointerId 变量，
+     * 当有手指按下时该变量都会是最后按下的那根手指的 Id。
+     * 在 Move 事件发生时 trackingPointerId 对应的手指拥有控制权。
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getActionMasked()) {

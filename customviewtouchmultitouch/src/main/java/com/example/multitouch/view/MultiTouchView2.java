@@ -35,6 +35,10 @@ public class MultiTouchView2 extends View {
         canvas.drawBitmap(bitmap, offsetX, offsetY, paint);
     }
 
+    /**
+     * 协作型实现核心在于计算出多个手指间的中心点位置，
+     * 后续事件都围绕该中心点进行。
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float focusX;

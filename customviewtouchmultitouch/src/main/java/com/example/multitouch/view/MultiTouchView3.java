@@ -37,6 +37,11 @@ public class MultiTouchView3 extends View {
         }
     }
 
+    /**
+     * 各自为战型实现核心在于需要为每个手指创建独立的操控数据，
+     * 在 Move 事件中更新所有手指的操控数据。
+     * 所有手指间的数据完全独立。
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getActionMasked()) {
@@ -53,7 +58,6 @@ public class MultiTouchView3 extends View {
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.d(this.getClass().getSimpleName(), "action move paths size: " + paths.size());
                 for (int i = 0; i < paths.size(); i++) {
                     int pointerId = event.getPointerId(i);
                     path = paths.get(pointerId);
