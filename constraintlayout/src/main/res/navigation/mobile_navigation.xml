@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_base">
+
+    <fragment
+        android:id="@+id/nav_base"
+        android:name="com.example.constraintlayout.ui.base.BaseFragment"
+        android:label="@string/menu_base"
+        tools:layout="@layout/fragment_base" />
+
+    <fragment
+        android:id="@+id/nav_base2"
+        android:name="com.example.constraintlayout.ui.base.Base2Fragment"
+        android:label="@string/menu_base2"
+        tools:layout="@layout/fragment_base2" />
+
+    <fragment
+        android:id="@+id/nav_base3"
+        android:name="com.example.constraintlayout.ui.base.Base3Fragment"
+        android:label="@string/menu_base3"
+        tools:layout="@layout/fragment_base3" />
+
+    <fragment
+        android:id="@+id/nav_weight"
+        android:name="com.example.constraintlayout.ui.weight.WeightFragment"
+        android:label="@string/menu_weight"
+        tools:layout="@layout/fragment_weight" />
+
+    <fragment
+        android:id="@+id/nav_weight2"
+        android:name="com.example.constraintlayout.ui.weight.Weight2Fragment"
+        android:label="@string/menu_weight2"
+        tools:layout="@layout/fragment_weight2" />
+
+    <fragment
+        android:id="@+id/nav_baseline"
+        android:name="com.example.constraintlayout.ui.BaselineFragment"
+        android:label="@string/menu_baseline"
+        tools:layout="@layout/fragment_baseline" />
+
+    <fragment
+        android:id="@+id/nav_circle"
+        android:name="com.example.constraintlayout.ui.CircleFragment"
+        android:label="@string/menu_circle"
+        tools:layout="@layout/fragment_circle" />
+
+    <fragment
+        android:id="@+id/nav_width"
+        android:name="com.example.constraintlayout.ui.WidthFragment"
+        android:label="@string/menu_width"
+        tools:layout="@layout/fragment_width" />
+
+    <fragment
+        android:id="@+id/nav_bias"
+        android:name="com.example.constraintlayout.ui.BiasFragment"
+        android:label="@string/menu_bias"
+        tools:layout="@layout/fragment_bias" />
+
+    <fragment
+        android:id="@+id/nav_gone_margin"
+        android:name="com.example.constraintlayout.ui.GoneMarginFragment"
+        android:label="@string/menu_gone_margin"
+        tools:layout="@layout/fragment_gone_margin" />
+
+    <fragment
+        android:id="@+id/nav_chain_style"
+        android:name="com.example.constraintlayout.ui.ChainStyleFragment"
+        android:label="@string/menu_chain_style"
+        tools:layout="@layout/fragment_chain_style" />
+
+    <fragment
+        android:id="@+id/nav_dimension_ratio"
+        android:name="com.example.constraintlayout.ui.DimensionRatioFragment"
+        android:label="@string/menu_dimension_ratio"
+        tools:layout="@layout/fragment_dimension_ratio" />
+
+    <fragment
+        android:id="@+id/nav_percent"
+        android:name="com.example.constraintlayout.ui.PercentFragment"
+        android:label="@string/menu_percent"
+        tools:layout="@layout/fragment_percent" />
+
+    <fragment
+        android:id="@+id/nav_guideline"
+        android:name="com.example.constraintlayout.ui.GuidelineFragment"
+        android:label="@string/menu_guideline"
+        tools:layout="@layout/fragment_guideline" />
+
+    <fragment
+        android:id="@+id/nav_group"
+        android:name="com.example.constraintlayout.ui.GroupFragment"
+        android:label="@string/menu_group"
+        tools:layout="@layout/fragment_group" />
+
+    <fragment
+        android:id="@+id/nav_layer"
+        android:name="com.example.constraintlayout.ui.LayerFragment"
+        android:label="@string/menu_layer"
+        tools:layout="@layout/fragment_layer" />
+
+    <fragment
+        android:id="@+id/nav_barrier"
+        android:name="com.example.constraintlayout.ui.BarrierFragment"
+        android:label="@string/menu_barrier"
+        tools:layout="@layout/fragment_barrier" />
+
+    <fragment
+        android:id="@+id/nav_circular_reveal"
+        android:name="com.example.constraintlayout.ui.CircularRevealFragment"
+        android:label="@string/menu_circular_reveal"
+        tools:layout="@layout/fragment_circular_reveal" />
+
+    <fragment
+        android:id="@+id/nav_placeholder"
+        android:name="com.example.constraintlayout.ui.PlaceholderFragment"
+        android:label="@string/menu_placeholder"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/nav_constraint_set"
+        android:name="com.example.constraintlayout.ui.constraintset.ConstraintSetFragment"
+        android:label="@string/menu_constraint_set"
+        tools:layout="@layout/fragment_constraint_set" />
+
+
+    <fragment
+        android:id="@+id/nav_constraint_set2"
+        android:name="com.example.constraintlayout.ui.constraintset.ConstraintSet2Fragment"
+        android:label="@string/menu_constraint_set2"
+        tools:layout="@layout/fragment_constraint_set2" />
+
+    <fragment
+        android:id="@+id/nav_flow"
+        android:name="com.example.constraintlayout.ui.FlowFragment"
+        android:label="@string/menu_flow"
+        tools:layout="@layout/fragment_flow" />
+
+    <fragment
+        android:id="@+id/nav_replace_layout"
+        android:name="com.example.constraintlayout.ui.ReplaceLayoutFragment"
+        android:label="@string/menu_replace_layout"
+        tools:layout="@layout/fragment_replace_layout_start" />
+</navigation>

@@ -1,0 +1,27 @@
+package com.example.constraintlayout.ui.base;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.example.constraintlayout.databinding.FragmentBase3Binding;
+
+public class Base3Fragment extends Fragment {
+    private FragmentBase3Binding binding;
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentBase3Binding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+}

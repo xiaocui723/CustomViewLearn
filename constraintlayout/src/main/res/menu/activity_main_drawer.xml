@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_base"
+            android:title="@string/menu_base" />
+        <item
+            android:id="@+id/nav_base2"
+            android:title="@string/menu_base2" />
+        <item
+            android:id="@+id/nav_base3"
+            android:title="@string/menu_base3" />
+        <item
+            android:id="@+id/nav_weight"
+            android:title="@string/menu_weight" />
+        <item
+            android:id="@+id/nav_weight2"
+            android:title="@string/menu_weight2" />
+        <item
+            android:id="@+id/nav_baseline"
+            android:title="@string/menu_baseline" />
+        <item
+            android:id="@+id/nav_circle"
+            android:title="@string/menu_circle" />
+        <item
+            android:id="@+id/nav_width"
+            android:title="@string/menu_width" />
+        <item
+            android:id="@+id/nav_bias"
+            android:title="@string/menu_bias" />
+        <item
+            android:id="@+id/nav_gone_margin"
+            android:title="@string/menu_gone_margin" />
+        <item
+            android:id="@+id/nav_chain_style"
+            android:title="@string/menu_chain_style" />
+        <item
+            android:id="@+id/nav_dimension_ratio"
+            android:title="@string/menu_dimension_ratio" />
+        <item
+            android:id="@+id/nav_percent"
+            android:title="@string/menu_percent" />
+        <item
+            android:id="@+id/nav_guideline"
+            android:title="@string/menu_guideline" />
+        <item
+            android:id="@+id/nav_group"
+            android:title="@string/menu_group" />
+        <item
+            android:id="@+id/nav_layer"
+            android:title="@string/menu_layer" />
+        <item
+            android:id="@+id/nav_barrier"
+            android:title="@string/menu_barrier" />
+        <item
+            android:id="@+id/nav_circular_reveal"
+            android:title="@string/menu_circular_reveal" />
+        <item
+            android:id="@+id/nav_placeholder"
+            android:title="@string/menu_placeholder" />
+        <item
+            android:id="@+id/nav_constraint_set"
+            android:title="@string/menu_constraint_set" />
+        <item
+            android:id="@+id/nav_constraint_set2"
+            android:title="@string/menu_constraint_set2" />
+        <item
+            android:id="@+id/nav_flow"
+            android:title="@string/menu_flow" />
+        <item
+            android:id="@+id/nav_replace_layout"
+            android:title="@string/menu_replace_layout" />
+    </group>
+</menu>

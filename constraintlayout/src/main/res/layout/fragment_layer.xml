@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Layer"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="image1,image2,image3,image4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:src="@drawable/small_avatar_bq"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:src="@drawable/small_avatar_bq"
+        app:layout_constraintStart_toEndOf="@+id/image1"
+        app:layout_constraintTop_toTopOf="@+id/image1" />
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:src="@drawable/small_avatar_bq"
+        app:layout_constraintStart_toStartOf="@+id/image2"
+        app:layout_constraintTop_toBottomOf="@+id/image2" />
+
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:src="@drawable/small_avatar_bq"
+        app:layout_constraintStart_toEndOf="@+id/image3"
+        app:layout_constraintTop_toTopOf="@id/image3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
