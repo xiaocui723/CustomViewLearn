@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ObjectAnimator2Activity">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginVertical="4dp"
+        android:background="@android:color/holo_blue_light"
+        android:contentDescription="@null"
+        android:onClick="onClick"
+        android:src="@drawable/ic_heart_24dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginVertical="4dp"
+        android:background="@android:color/holo_blue_light"
+        android:contentDescription="@null"
+        android:onClick="onClick"
+        android:src="@drawable/ic_heart_24dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginVertical="4dp"
+        android:background="@android:color/holo_blue_light"
+        android:contentDescription="@null"
+        android:onClick="onClick"
+        android:src="@drawable/ic_heart_24dp" />
+
+</LinearLayout>

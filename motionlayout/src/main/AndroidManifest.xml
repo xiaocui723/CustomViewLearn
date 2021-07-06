@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.motionlayout">
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CustomViewDrawing">
+        <activity
+            android:name=".ObjectAnimatorActivity"
+            android:label="ObjectAnimator" />
+        <activity
+            android:name=".ObjectAnimator2Activity"
+            android:label="ObjectAnimator2" />
+        <activity
+            android:name=".GoActivity"
+            android:label="GoActivity" />
+        <activity
+            android:name=".ConstraintSetActivity"
+            android:label="ConstraintSetActivity" />
+        <activity
+            android:name=".MotionActivity"
+            android:label="MotionActivity" />
+        <activity
+            android:name=".MotionSampleActivity"
+            android:label="MotionSampleActivity" />
+        <activity
+            android:name=".CuiCoderActivity"
+            android:label="CuiCoderActivity" />
+        <activity
+            android:name=".YoutubeLikeActivity"
+            android:label="YoutubeLikeActivity" />
+        <activity
+            android:name=".MotionLayoutActivity"
+            android:label="MotionLayoutActivity" />
+        <activity
+            android:name=".WithCoordinatorActivity"
+            android:label="WithCoordinatorActivity" />
+        <activity
+            android:name=".WithDrawerActivity"
+            android:label="WithDrawerActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
