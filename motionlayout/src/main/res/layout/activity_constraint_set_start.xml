@@ -48,7 +48,7 @@
         android:numStars="5"
         android:paddingVertical="8dp"
         android:progressTint="@android:color/holo_orange_light"
-        app:layout_constraintBottom_toBottomOf="@id/text_film_title"
+        app:layout_constraintTop_toBottomOf="@id/text_film_title"
         app:layout_constraintStart_toStartOf="@id/text_film_title" />
 
     <TextView
