@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.motionlayout.databinding.ActivityWithCoordinatorBinding;
 
+/**
+ * MotionLayout 搭配 CoordinatorLayout 使用
+ */
 public class WithCoordinatorActivity extends AppCompatActivity {
 
     @Override

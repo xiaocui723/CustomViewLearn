@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.transition.Scene;
 import androidx.transition.TransitionManager;
 
+/**
+ * 通过 TransitionManager.go() 实现布局替换的过渡动画
+ */
 public class GoActivity extends AppCompatActivity implements View.OnClickListener {
     private Boolean toggle = true;
 

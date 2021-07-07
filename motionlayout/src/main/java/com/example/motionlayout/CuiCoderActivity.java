@@ -7,6 +7,9 @@ import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import com.example.motionlayout.databinding.ActivityCuiCoderBinding;
 
+/**
+ * MotionLayout 特性示例 2
+ */
 public class CuiCoderActivity extends AppCompatActivity {
 
     @Override

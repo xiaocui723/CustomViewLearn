@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.motionlayout.databinding.ActivityMainBinding;
 
+/**
+ * 示例列表
+ * 根据注册 Activity 添加示例入口 Button
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

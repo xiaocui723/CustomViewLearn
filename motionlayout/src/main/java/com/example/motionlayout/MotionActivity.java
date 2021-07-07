@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.motionlayout.databinding.ActivityMotionBinding;
 
+/**
+ * MotionLayout 使用示例
+ */
 public class MotionActivity extends AppCompatActivity {
 
     @Override

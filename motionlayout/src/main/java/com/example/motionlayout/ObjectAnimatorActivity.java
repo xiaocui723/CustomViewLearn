@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.motionlayout.databinding.ActivityObjectAnimatorBinding;
 
+/**
+ * 修改 View 属性，通过 TransitionManager.beginDelayedTransition() 实现属性动画
+ */
 public class ObjectAnimatorActivity extends AppCompatActivity {
     private ActivityObjectAnimatorBinding binding;
 

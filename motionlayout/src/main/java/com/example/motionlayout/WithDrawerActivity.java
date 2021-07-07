@@ -9,6 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.motionlayout.databinding.ActivityWithDrawerBinding;
 
+/**
+ * MotionLayout 搭配 DrawerLayout 使用
+ */
 public class WithDrawerActivity extends AppCompatActivity {
 
     @Override

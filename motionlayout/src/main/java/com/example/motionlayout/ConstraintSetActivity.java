@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+/**
+ * 使用 ConstraintSet 更换布局，通过 TransitionManager.beginDelayedTransition() 实现更换过程的过渡动画
+ */
 public class ConstraintSetActivity extends AppCompatActivity implements View.OnClickListener {
 
 
