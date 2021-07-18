@@ -42,6 +42,9 @@
         <activity
             android:name=".WithDrawerActivity"
             android:label="WithDrawerActivity" />
+        <activity
+            android:name=".RecyclerMotionActivity"
+            android:label="RecyclerMotionActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
